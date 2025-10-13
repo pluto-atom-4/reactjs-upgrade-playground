@@ -28,11 +28,6 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# Prisma
-prisma/dev.db
-prisma/dev.db-journal
-prisma/migrations/
-
 # IDEs
 .vscode/
 .idea/
@@ -41,3 +36,15 @@ prisma/migrations/
 # OS
 .DS_Store
 Thumbs.db
+
+# Prisma
+packages/api/prisma/dev.db
+packages/api/prisma/dev.db-journal
+packages/api/prisma/migrations/
+
+# Env files
+packages/api/.env
+
+__temp__*.*
+/__tests__/http-client.private.env.json
+/.run/

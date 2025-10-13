@@ -1,7 +1,6 @@
 {
-  "name": "reactjs-upgrade-playground",
+  "name": "ui",
   "version": "1.0.0",
-  "private": true,
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -12,11 +11,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.18.2",
   "type": "module",
-  "workspace": [
-    "apps/*",
-    "packages/*"
-  ],
-  "devDependencies": {
-    "typescript": "~5.9.3"
+  "dependencies": {
+    "react": "18.2.0"
   }
 }
