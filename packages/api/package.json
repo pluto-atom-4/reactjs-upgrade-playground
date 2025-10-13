@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev",
+    "prisma:migrate:init": "pnpm exec prisma dev --name init",
+    "prisma:generate": "pnpm exec prisma generate",
+    "prisma:init": "pnpm exec prisma init",
+    "prisma:migrate": "pnpm exec prisma migrate dev",
     "dev": "pnpm exec tsx src/server.ts"
   },
   "prisma": {

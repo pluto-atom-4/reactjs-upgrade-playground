@@ -1,14 +1,14 @@
-import { trpc } from './utils/trpc';
+import { TodoForm, TodoList } from '@ui';
 
 function App() {
-  const health = trpc.health.status.useQuery();
-
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold">tRPC Health Check</h1>
-      <p>Status: {health.data?.status ?? 'Loading...'}</p>
+    <div className="p-4 max-w-md mx-auto">
+      <h1 className="text-2xl font-bold mb-4">📝 TODOs</h1>
+      <TodoForm onAdd={() => {}} />
+      <TodoList />
     </div>
   );
 }
+
 
 export default App;

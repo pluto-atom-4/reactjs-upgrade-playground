@@ -4,6 +4,11 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db"
+  url      = env("DATABASE_URL")
 }
 
+model Todo {
+  id   String  @id @default(uuid())
+  text String
+  done Boolean @default(false)
+}
