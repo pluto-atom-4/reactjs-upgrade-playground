@@ -1,14 +1,12 @@
 import { useState } from 'react';
-import { trpc } from '@web/utils/trpc';
 
-export function TodoForm({ onAdd }: { onAdd: () => void }) {
+export function TodoForm({ onAdd }: { onAdd: (text: string) => void }) {
   const [text, setText] = useState('');
-  const addTodo = trpc.todos.add.useMutation({ onSuccess: onAdd });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (text.trim()) {
-      addTodo.mutate({ text });
+      onAdd(text.trim());
       setText('');
     }
   };

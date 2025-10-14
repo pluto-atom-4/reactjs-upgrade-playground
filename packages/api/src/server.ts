@@ -1,14 +1,18 @@
 import express from 'express';
 import cors from 'cors';
 import { createExpressMiddleware } from '@trpc/server/adapters/express';
-import { appRouter } from './index.js';
+import { appRouter } from './index';
 
 const app = express();
 const PORT = 4000;
 
-app.use(cors());
-app.use(express.json());
+// Enable CORS for the frontend
+app.use(cors({
+  origin: 'http://localhost:5173', // Vite dev server default port
+  credentials: true,
+}));
 
+// Set up tRPC middleware
 app.use(
   '/trpc',
   createExpressMiddleware({
@@ -18,5 +22,5 @@ app.use(
 );
 
 app.listen(PORT, () => {
-  console.log(`🚀 tRPC server running at http://localhost:${PORT}/trpc`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

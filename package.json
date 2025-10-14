@@ -1,22 +1,26 @@
 {
   "name": "reactjs-upgrade-playground",
-  "version": "1.0.0",
   "private": true,
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.18.2",
+  "version": "0.0.0",
   "type": "module",
+  "scripts": {
+    "dev": "pnpm run --parallel dev",
+    "build": "pnpm run --recursive build",
+    "web:dev": "pnpm --filter @web/app dev",
+    "api:dev": "pnpm --filter @api/server dev"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "@types/node": "^20.10.5"
+  },
+  "packageManager": "pnpm@10.18.2",
   "workspace": [
     "apps/*",
     "packages/*"
   ],
-  "devDependencies": {
-    "typescript": "~5.9.3"
-  }
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
