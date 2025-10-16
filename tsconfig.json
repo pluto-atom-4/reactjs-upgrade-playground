@@ -1,40 +1,40 @@
-// tsconfig.json
 {
   "compilerOptions": {
-    // Base compilation settings
-    "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "lib": ["DOM", "ES2022"],
-    "types": [],
-
-    // Import/Export settings
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    /* Base Options: */
     "skipLibCheck": true,
-    "resolveJsonModule": true,
+    "target": "es2022",
+    "allowJs": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
 
-    // Type checking
+    /* Strictness */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
+    "checkJs": true,
+    "allowImportingTsExtensions": true,
 
-    // Monorepo path mapping
+    /* Bundled projects */
+    "lib": ["dom", "dom.iterable", "ES2022"],
+    "noEmit": true,
+    "module": "Preserve",
+    "moduleResolution": "bundler",
+    "jsx": "preserve",
+    "plugins": [{ "name": "next" }],
+    "incremental": true,
+
+    /* Path aliases */
     "baseUrl": ".",
     "paths": {
-      "@api/*": ["packages/api/src/*"],
-      "@web/*": ["apps/web/src/*"],
-      "@ui": ["packages/ui/src/index.ts"],
-      "@ui/*": ["packages/ui/src/*"]
-    }
+      "~/*": ["src/*"]
+    },
+
+    "types": ["vitest/globals"]
   },
-  "files": [],
-  "exclude": ["node_modules", "dist", "build"],
-  "references": [
-    { "path": "apps/web" },
-    { "path": "packages/api" },
-    { "path": "packages/ui" }
-  ]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "*.js",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
 }
