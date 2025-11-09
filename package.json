@@ -10,6 +10,7 @@
     "dx:prisma-studio": "pnpm prisma-studio",
     "dx": "run-p dx:* --print-label",
     "dev": "pnpm dx:next",
+    "dev:nomigrate": "next dev",
     "prebuild": "run-s generate migrate",
     "build": "next build",
     "start": "next start",
@@ -23,14 +24,6 @@
     "postinstall": "pnpm generate",
     "typecheck": "tsc --noEmit"
   },
-  "prisma": {
-    "seed": "tsx prisma/seed.ts"
-  },
-  "prettier": {
-    "printWidth": 80,
-    "trailingComma": "all",
-    "singleQuote": true
-  },
   "dependencies": {
     "@prisma/client": "^6.7.0",
     "@tanstack/react-query": "^5.80.3",
@@ -39,20 +32,20 @@
     "@trpc/react-query": "npm:@trpc/react-query",
     "@trpc/server": "npm:@trpc/server",
     "clsx": "^2.0.0",
-    "next": "^15.3.1",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "next": "^16.0.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "superjson": "^1.12.4",
     "zod": "^3.25.51"
   },
   "devDependencies": {
     "@playwright/test": "^1.50.1",
     "@types/node": "^22.13.5",
-    "@types/react":"^19.1.0",
+    "@types/react": "^19.2.2",
     "autoprefixer": "^10.4.7",
     "dotenv": "^16.0.1",
     "eslint": "^9.26.0",
-    "eslint-config-next": "^15.3.1",
+    "eslint-config-next": "^16.0.1",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^6.0.0-rc.1",
     "npm-run-all": "^4.1.5",

@@ -1,3 +1,11 @@
+// Load environment variables so the webServer spawned by Playwright has DATABASE_URL, etc.
+try {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require('dotenv').config();
+} catch (e) {
+  // ignore
+}
+
 import { PlaywrightTestConfig, devices } from '@playwright/test';
 
 const opts = {
@@ -19,7 +27,7 @@ const config: PlaywrightTestConfig = {
   },
   retries: process.env.CI ? 3 : 0,
   webServer: {
-    command: process.env.CI ? 'npm run start' : 'npm run dev',
+    command: process.env.CI ? 'npm run start' : 'npm run dev:nomigrate',
     reuseExistingServer: Boolean(process.env.TEST_LOCAL === '1'),
     port: 3000,
   },

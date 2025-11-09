@@ -8,6 +8,8 @@ import type { NextPageContext } from "next";
 import type { AppRouter } from "~/server/routers/_app";
 import { transformer } from "./transformer";
 
+const runtimeNodeEnv = process.env.NEXT_PUBLIC_NODE_ENV ?? process.env.NODE_ENV;
+
 function getBaseUrl() {
   if (typeof window !== "undefined") {
     return "";
@@ -59,7 +61,7 @@ export const trpc = createTRPCNext<AppRouter, SSRContext>({
         // adds pretty logs to your console in development and logs errors in production
         loggerLink({
           enabled: (opts) =>
-            process.env.NODE_ENV === "development" ||
+            runtimeNodeEnv === "development" ||
             (opts.direction === "down" && opts.result instanceof Error),
         }),
         httpBatchStreamLink({
