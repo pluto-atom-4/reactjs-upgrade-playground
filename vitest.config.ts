@@ -1,19 +1,23 @@
 import { fileURLToPath } from 'url';
 import { configDefaults, defineConfig } from 'vitest/config';
-import path from 'path';
+
+const srcPath = fileURLToPath(new URL('./src/', import.meta.url));
 
 export default defineConfig({
   test: {
     globals: true,
+    environment: 'jsdom',
     exclude: [...configDefaults.exclude, '**/playwright/**'],
     alias: {
-      '~/': fileURLToPath(new URL('./src/', import.meta.url)),
+      '~': srcPath,
+      '~/': srcPath,
     },
-    setupFiles: ['dotenv/config'],
+    setupFiles: ['dotenv/config', '@testing-library/jest-dom'],
   },
   resolve: {
     alias: {
-      '~': path.resolve(__dirname, './src'),
+      '~': srcPath,
+      '~/': srcPath,
     },
   },
 });

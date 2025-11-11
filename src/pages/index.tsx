@@ -57,6 +57,23 @@ const IndexPage: NextPageWithLayout = () => {
         .
       </p>
 
+      <div className="flex flex-col gap-4 py-8">
+        <div className="flex flex-col">
+          <Link
+            href="/react19-playground"
+            className="inline-block px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors w-fit"
+          >
+            🚀 React 19.2 Features Playground
+          </Link>
+          <p className="text-gray-400 text-sm mt-2">
+            Explore new React 19.2 features: useActionState, useOptimistic,
+            Activity Components, useEffectEvent pattern, PPR concepts, and RSC awareness.
+          </p>
+        </div>
+      </div>
+
+      <hr className="my-4" />
+
       <div className="flex flex-col py-8 items-start gap-y-2">
         <div className="flex flex-col"></div>
         <h2 className="text-3xl font-semibold">

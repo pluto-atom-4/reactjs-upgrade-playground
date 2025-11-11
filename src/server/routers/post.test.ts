@@ -1,6 +1,7 @@
 /**
  * Integration test example for the `post` router
  */
+import { test, expect } from 'vitest';
 import type { inferProcedureInput } from '@trpc/server';
 import { createContextInner } from '../context';
 import type { AppRouter } from './_app';
