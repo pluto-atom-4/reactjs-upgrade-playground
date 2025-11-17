@@ -2,6 +2,7 @@
   "name": "examples-trpc-next-prisma-starter",
   "private": true,
   "scripts": {
+    "test-e2e:ci": "TEST_LOCAL=1 pnpm playwright test",
     "generate": "prisma generate",
     "prisma-studio": "prisma studio",
     "db-seed": "prisma db seed",
