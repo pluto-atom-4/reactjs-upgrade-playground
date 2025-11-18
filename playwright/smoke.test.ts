@@ -1,15 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-const react19Demos = [
-  { slug: 'use-action-state-basic', title: 'useActionState Basics' },
-  { slug: 'use-action-state-advanced', title: 'useActionState Advanced' },
-  { slug: 'use-optimistic', title: 'useOptimistic Todos' },
-  { slug: 'use-transition', title: 'useTransition Search' },
-  { slug: 'activity-component', title: 'Activity Feed Pattern' },
-  { slug: 'use-effect-event', title: 'useEffectEvent Logging' },
-  { slug: 'partial-pre-rendering', title: 'Partial Pre-rendering' },
-  { slug: 'server-components-awareness', title: 'Server Components Awareness' },
-];
+// Remove hardcoded array - we'll fetch actual demos dynamically
+let react19Demos: Array<{ slug: string; title: string }> = [];
 
 // Set a reasonable timeout for all tests (60 seconds total, individual tests get this)
 test.setTimeout(60e3);
@@ -18,6 +10,23 @@ test.setTimeout(60e3);
 const waitVisible = async (page: any, selector: string, timeout = 10000) => {
   await page.waitForSelector(selector, { timeout });
   await expect(page.locator(selector)).toBeVisible({ timeout });
+};
+
+// Helper: fetch actual demos from the page
+const fetchActualDemos = async (page: any) => {
+  await page.goto('/react19-playground', { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await waitVisible(page, '[data-testid="react19-demo-grid"]', 10000);
+
+  // Extract demo data from the actual rendered cards
+  const demos = await page.locator('[data-testid="react19-demo-card"]').evaluateAll((cards: HTMLElement[]) => {
+    return cards.map(card => ({
+      slug: card.getAttribute('data-demo-slug') || '',
+      title: card.querySelector('h2')?.textContent || ''
+    })).filter(demo => demo.slug && demo.title);
+  });
+
+  return demos;
 };
 
 test('go to /', async ({ page }) => {
@@ -80,11 +89,19 @@ test('navigate to React 19 playground', async ({ page }) => {
   // Wait for the demo grid to appear (use generous timeout)
   await waitVisible(page, '[data-testid="react19-demo-grid"]', 10000);
 
-  // Verify card count
+  // Fetch actual demos and update our array
+  react19Demos = await fetchActualDemos(page);
+
+  // Verify card count matches actual demos
   await expect(page.locator('[data-testid="react19-demo-card"]')).toHaveCount(react19Demos.length, { timeout: 10000 });
 });
 
 test('React 19 cards open dedicated demo pages', async ({ page }) => {
+  // Ensure we have demos loaded
+  if (react19Demos.length === 0) {
+    react19Demos = await fetchActualDemos(page);
+  }
+
   await page.goto('/react19-playground', { waitUntil: 'networkidle' });
   await page.waitForLoadState('domcontentloaded');
 
@@ -117,17 +134,36 @@ test('React 19 cards open dedicated demo pages', async ({ page }) => {
 });
 
 test('smoke test - all main routes are accessible', async ({ page }) => {
+  // Fetch actual demos if not already loaded
+  if (react19Demos.length === 0) {
+    react19Demos = await fetchActualDemos(page);
+  }
+
+  // Ensure we have at least one demo
+  if (react19Demos.length === 0) {
+    throw new Error('No React 19 demos found in registry');
+  }
+
+  const firstDemo = react19Demos[0];
   const routes = [
-    { path: '/', waitFor: 'h1' },
-    { path: '/react19-playground', waitFor: '[data-testid="react19-demo-grid"]' },
-    { path: `/react19-playground/${react19Demos[0]?.slug ?? ''}`, waitFor: 'h1' },
+    { path: '/', waitFor: 'h1', description: 'Home page' },
+    { path: '/react19-playground', waitFor: '[data-testid="react19-demo-grid"]', description: 'React 19 Playground hub' },
+    { path: `/react19-playground/${firstDemo.slug}`, waitFor: 'h1', description: `First demo: ${firstDemo.title}` },
   ];
 
   for (const route of routes) {
-    await page.goto(route.path, { waitUntil: 'networkidle' });
-    await page.waitForLoadState('domcontentloaded');
+    console.log(`Testing route: ${route.description} (${route.path})`);
 
-    // Verify the page loaded without errors
-    await expect(page.locator(route.waitFor)).toBeVisible({ timeout: 10000 });
+    try {
+      await page.goto(route.path, { waitUntil: 'networkidle' });
+      await page.waitForLoadState('domcontentloaded');
+      await expect(page.locator(route.waitFor)).toBeVisible({ timeout: 10000 });
+      console.log(`✓ ${route.description} loaded successfully`);
+    } catch (error) {
+      console.error(`✗ Failed to load ${route.description}`);
+      console.error(`Path: ${route.path}`);
+      console.error(`Waiting for selector: ${route.waitFor}`);
+      throw error;
+    }
   }
 });

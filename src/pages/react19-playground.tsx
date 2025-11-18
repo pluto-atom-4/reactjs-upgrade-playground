@@ -67,7 +67,7 @@ const React19PlaygroundPage: NextPageWithLayout = () => (
             share deep links with your team or use them while presenting React 19.2 concepts.
           </p>
           <div className="flex flex-wrap justify-center gap-3 text-sm">
-            {['useActionState', 'useOptimistic', 'useTransition', 'Activity Component', 'useEffectEvent', 'PPR Concepts', 'RSC Awareness'].map((chip) => (
+            {['useActionState', 'useActionState Advanced', 'useOptimistic', 'useTransition', 'startTransition', 'Activity Component', 'useEffectEvent', 'PPR Concepts', 'RSC Awareness'].map((chip) => (
               <span key={chip} className="px-3 py-1 bg-slate-700 text-slate-200 rounded-full">
                 {chip}
               </span>
@@ -82,4 +82,3 @@ const React19PlaygroundPage: NextPageWithLayout = () => (
 React19PlaygroundPage.getLayout = (page: ReactElement) => page;
 
 export default React19PlaygroundPage;
-

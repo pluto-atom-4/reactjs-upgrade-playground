@@ -7,6 +7,7 @@ import { ActivityComponentDemo } from './demos/activity-component';
 import { UseEffectEventDemo } from './demos/use-effect-event';
 import { PartialPreRenderingDemo } from './demos/partial-pre-rendering';
 import { ServerComponentsAwarenessDemo } from './demos/server-components-awareness';
+import { CustomFormDemo } from './demos/custom-form';
 
 export type React19DemoMeta = {
   slug: string;
@@ -127,7 +128,19 @@ export const react19DemoRegistry: React19DemoMeta[] = [
     },
     Component: ServerComponentsAwarenessDemo,
   },
+  {
+    slug: 'custom-form',
+    title: 'Custom Form Component',
+    category: 'Forms',
+    summary: 'Reusable form wrapper with React 19 actions, validation, and error handling.',
+    accent: {
+      bg: 'from-emerald-500/10 to-emerald-500/5',
+      border: 'border-emerald-400/60',
+      text: 'text-emerald-300',
+      tag: 'bg-emerald-500/20 text-emerald-100',
+    },
+    Component: CustomFormDemo,
+  },
 ];
 
 export const getReact19Demo = (slug?: string) => react19DemoRegistry.find((demo) => demo.slug === slug);
-
