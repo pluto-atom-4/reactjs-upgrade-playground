@@ -8,8 +8,7 @@ import { UseEffectEventDemo } from './demos/use-effect-event';
 import { PartialPreRenderingDemo } from './demos/partial-pre-rendering';
 import { ServerComponentsAwarenessDemo } from './demos/server-components-awareness';
 import { CustomFormDemo } from './demos/custom-form';
-
-export type React19DemoMeta = {
+export type DemoMeta = {
   slug: string;
   title: string;
   category: string;
@@ -23,7 +22,7 @@ export type React19DemoMeta = {
   Component: () => JSX.Element;
 };
 
-export const react19DemoRegistry: React19DemoMeta[] = [
+export const react19DemoRegistry: DemoMeta[] = [
   {
     slug: 'use-action-state-basic',
     title: 'useActionState Basics',
@@ -143,4 +142,13 @@ export const react19DemoRegistry: React19DemoMeta[] = [
   },
 ];
 
-export const getReact19Demo = (slug?: string) => react19DemoRegistry.find((demo) => demo.slug === slug);
+/**
+ * Find a React 19 demo by its slug.
+ * @param slug - The demo slug to look up
+ * @returns The demo metadata and component, or undefined if not found
+ */
+export function getReact19Demo(slug: string | undefined): DemoMeta | undefined {
+  if (!slug) return undefined;
+  return react19DemoRegistry.find((demo) => demo.slug === slug);
+}
+

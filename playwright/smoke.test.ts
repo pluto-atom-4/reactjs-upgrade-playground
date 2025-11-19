@@ -97,18 +97,26 @@ test('navigate to React 19 playground', async ({ page }) => {
 });
 
 test('React 19 cards open dedicated demo pages', async ({ page }) => {
-  // Ensure we have demos loaded
-  if (react19Demos.length === 0) {
-    react19Demos = await fetchActualDemos(page);
-  }
-
+  // Always fetch fresh demos for this test to ensure we have the latest
   await page.goto('/react19-playground', { waitUntil: 'networkidle' });
   await page.waitForLoadState('domcontentloaded');
 
   // Ensure grid is present
   await waitVisible(page, '[data-testid="react19-demo-grid"]', 10000);
 
-  for (const demo of react19Demos) {
+  // Get demos for this test run
+  const demos = await page.locator('[data-testid="react19-demo-card"]').evaluateAll((cards: HTMLElement[]) => {
+    return cards.map(card => ({
+      slug: card.getAttribute('data-demo-slug') || '',
+      title: card.querySelector('h2')?.textContent || ''
+    })).filter(demo => demo.slug && demo.title);
+  });
+
+  if (demos.length === 0) {
+    throw new Error('No React 19 demos found on page');
+  }
+
+  for (const demo of demos) {
     const card = page.locator(`[data-demo-slug="${demo.slug}"]`).first();
     await expect(card).toBeVisible({ timeout: 5000 });
 
@@ -134,17 +142,25 @@ test('React 19 cards open dedicated demo pages', async ({ page }) => {
 });
 
 test('smoke test - all main routes are accessible', async ({ page }) => {
-  // Fetch actual demos if not already loaded
-  if (react19Demos.length === 0) {
-    react19Demos = await fetchActualDemos(page);
-  }
+  // Fetch fresh demos for this test run
+  await page.goto('/react19-playground', { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await waitVisible(page, '[data-testid="react19-demo-grid"]', 10000);
+
+  // Get demos for this test run
+  const demos = await page.locator('[data-testid="react19-demo-card"]').evaluateAll((cards: HTMLElement[]) => {
+    return cards.map(card => ({
+      slug: card.getAttribute('data-demo-slug') || '',
+      title: card.querySelector('h2')?.textContent || ''
+    })).filter(demo => demo.slug && demo.title);
+  });
 
   // Ensure we have at least one demo
-  if (react19Demos.length === 0) {
+  if (demos.length === 0) {
     throw new Error('No React 19 demos found in registry');
   }
 
-  const firstDemo = react19Demos[0];
+  const firstDemo = demos[0];
   const routes = [
     { path: '/', waitFor: 'h1', description: 'Home page' },
     { path: '/react19-playground', waitFor: '[data-testid="react19-demo-grid"]', description: 'React 19 Playground hub' },
