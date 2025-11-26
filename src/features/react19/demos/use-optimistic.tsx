@@ -1,4 +1,4 @@
-import { useOptimistic, useState, useCallback } from 'react';
+import { useOptimistic, useState, useCallback, useTransition } from 'react';
 import type { JSX } from 'react';
 
 interface OptimisticItem {
@@ -9,7 +9,7 @@ interface OptimisticItem {
 }
 
 async function addTodoAction(item: OptimisticItem): Promise<OptimisticItem> {
-  await new Promise((resolve) => setTimeout(resolve, 800));
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   return item;
 }
 
@@ -18,25 +18,48 @@ export const UseOptimisticDemo = (): JSX.Element => {
     { id: '1', text: 'Learn React 19.2', completed: false },
     { id: '2', text: 'Build playground', completed: true },
   ]);
+  const [isPending, startTransition] = useTransition();
 
   const [optimisticTodos, addOptimisticTodo] = useOptimistic<OptimisticItem[], OptimisticItem>(todos, (state, newTodo) => [
     ...state,
     { ...newTodo, pending: true },
   ]);
 
+  /**
+   * handleAddTodo demonstrates the useOptimistic hook workflow:
+   *
+   * 1. User enters todo text and triggers the function
+   * 2. A new OptimisticItem is created with a temporary ID (Date.now())
+   * 3. startTransition() wraps the optimistic update to signal React this is a non-blocking transition
+   * 4. addOptimisticTodo(newTodo) is called immediately within the transition:
+   *    - This updates optimisticTodos WITHOUT waiting for the server
+   *    - The updater function adds newTodo with pending: true to the state
+   *    - UI re-renders instantly with the new todo in "pending" state (yellow background)
+   * 5. Meanwhile, addTodoAction() is called to simulate server request (2000ms delay)
+   * 6. When the server responds successfully:
+   *    - setTodos() updates the real state with the confirmed data
+   *    - The optimisticTodos state is automatically synchronized with todos
+   * 7. If an error occurs, the pending item remains until the next successful update
+   *
+   * This creates a seamless user experience where the UI feels instant,
+   * while the actual data persists in the background.
+   */
   const handleAddTodo = useCallback(
-    async (text: string) => {
-      const newTodo: OptimisticItem = { id: Date.now().toString(), text, completed: false };
+    (text: string) => {
+      const newTodo: OptimisticItem = { id: `temp-${Date.now()}-${Math.random()}`, text, completed: false };
 
-      try {
-        await addOptimisticTodo(newTodo);
-        const result = await addTodoAction(newTodo);
-        setTodos((prev) => [...prev, result]);
-      } catch (error) {
-        console.error('Failed to add todo:', error);
-      }
+      startTransition(async () => {
+        try {
+          addOptimisticTodo(newTodo);
+          const confirmedTodo: OptimisticItem = { id: Date.now().toString(), text, completed: false };
+          const result = await addTodoAction(confirmedTodo);
+          setTodos((prev) => [...prev, result]);
+        } catch (error) {
+          console.error('Failed to add todo:', error);
+        }
+      });
     },
-    [addOptimisticTodo],
+    [addOptimisticTodo, startTransition],
   );
 
   return (
