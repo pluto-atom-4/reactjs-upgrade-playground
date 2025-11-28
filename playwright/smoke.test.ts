@@ -161,11 +161,21 @@ test('smoke test - all main routes are accessible', async ({ page }) => {
   }
 
   const firstDemo = demos[0];
+  const useApiDemo = demos.find(demo => demo.slug === 'use-api-promise-resolver');
   const routes = [
     { path: '/', waitFor: 'h1', description: 'Home page' },
     { path: '/react19-playground', waitFor: '[data-testid="react19-demo-grid"]', description: 'React 19 Playground hub' },
     { path: `/react19-playground/${firstDemo.slug}`, waitFor: 'h1', description: `First demo: ${firstDemo.title}` },
   ];
+
+  // Add use() API demo to routes if available
+  if (useApiDemo) {
+    routes.push({
+      path: `/react19-playground/${useApiDemo.slug}`,
+      waitFor: 'h1',
+      description: `use() API demo: ${useApiDemo.title}`
+    });
+  }
 
   for (const route of routes) {
     console.log(`Testing route: ${route.description} (${route.path})`);

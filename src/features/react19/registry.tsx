@@ -8,6 +8,7 @@ import { UseEffectEventDemo } from './demos/use-effect-event';
 import { PartialPreRenderingDemo } from './demos/partial-pre-rendering';
 import { ServerComponentsAwarenessDemo } from './demos/server-components-awareness';
 import { CustomFormDemo } from './demos/custom-form';
+import { UseApiPromiseResolverDemo } from './demos/use-api-promise-resolver';
 export type DemoMeta = {
   slug: string;
   title: string;
@@ -139,6 +140,19 @@ export const react19DemoRegistry: DemoMeta[] = [
       tag: 'bg-emerald-500/20 text-emerald-100',
     },
     Component: CustomFormDemo,
+  },
+  {
+    slug: 'use-api-promise-resolver',
+    title: 'use() API - Promise Resolver',
+    category: 'Data Fetching',
+    summary: 'Unwrap promises with use() hook for cleaner async data handling with Suspense.',
+    accent: {
+      bg: 'from-teal-500/10 to-teal-500/5',
+      border: 'border-teal-400/60',
+      text: 'text-teal-300',
+      tag: 'bg-teal-500/20 text-teal-100',
+    },
+    Component: UseApiPromiseResolverDemo,
   },
 ];
 
