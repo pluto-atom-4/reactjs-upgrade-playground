@@ -1,4 +1,5 @@
 import type { JSX } from 'react';
+import { ContextAsProviderDemo } from "~/features/react19/demos.tsx";
 import { UseActionStateDemo } from './demos/use-action-state-basic';
 import { UseActionStateAdvancedDemo } from './demos/use-action-state-advanced';
 import { UseOptimisticDemo } from './demos/use-optimistic';
@@ -168,15 +169,21 @@ export const react19DemoRegistry: DemoMeta[] = [
     },
     Component: ResourceLoadingMetadataDemo,
   },
+  {
+    slug: 'context-as-provider',
+    title: 'Context as Provider',
+    category: 'Architecture',
+    summary: 'Simplify state management with React 19\'s Context as Provider - use Context directly without needing a separate Provider component.',
+    accent: {
+      bg: 'from-violet-500/10 to-violet-500/5',
+      border: 'border-violet-400/60',
+      text: 'text-violet-300',
+      tag: 'bg-violet-500/20 text-violet-100',
+    },
+    Component: ContextAsProviderDemo,
+  },
 ];
 
-/**
- * Find a React 19 demo by its slug.
- * @param slug - The demo slug to look up
- * @returns The demo metadata and component, or undefined if not found
- */
-export function getReact19Demo(slug: string | undefined): DemoMeta | undefined {
-  if (!slug) return undefined;
+export function getReact19Demo(slug: string): DemoMeta | undefined {
   return react19DemoRegistry.find((demo) => demo.slug === slug);
 }
-
