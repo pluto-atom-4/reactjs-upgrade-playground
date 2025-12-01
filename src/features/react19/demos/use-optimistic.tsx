@@ -18,7 +18,7 @@ export const UseOptimisticDemo = (): JSX.Element => {
     { id: '1', text: 'Learn React 19.2', completed: false },
     { id: '2', text: 'Build playground', completed: true },
   ]);
-  const [isPending, startTransition] = useTransition();
+  const [_isPending, startTransition] = useTransition();
 
   const [optimisticTodos, addOptimisticTodo] = useOptimistic<OptimisticItem[], OptimisticItem>(todos, (state, newTodo) => [
     ...state,

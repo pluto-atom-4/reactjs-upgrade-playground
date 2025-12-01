@@ -15,7 +15,7 @@ describe('UseOptimisticDemo handleAddTodo', () => {
     const user = userEvent.setup();
     render(<UseOptimisticDemo />);
 
-    const input = screen.getByPlaceholderText('Add a new todo...') as HTMLInputElement;
+    const input = screen.getByPlaceholderText('Add a new todo...');
     const button = screen.getByRole('button', { name: /add/i });
 
     // Type the todo text using userEvent

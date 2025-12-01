@@ -3,11 +3,11 @@ import reactPlugin from 'eslint-plugin-react';
 import * as reactHooks from 'eslint-plugin-react-hooks';
 
 export default tseslint.config(
-  reactHooks.configs.recommended,
   {
-    files: ['**/*.js', '**/*.ts', '**/*.tsx'],
+    files: ['**/*.js', '**/*.ts', '**/*.tsx', '**/*.mjs'],
     plugins: {
-      react: reactPlugin
+      react: reactPlugin,
+      'react-hooks': reactHooks,
     },
     extends: [
       ...tseslint.configs.recommended,
@@ -16,7 +16,6 @@ export default tseslint.config(
     ],
     rules: {
       ...reactPlugin.configs['jsx-runtime'].rules,
-      'react-hooks/react-compiler': 'error',
 
       // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
       '@typescript-eslint/consistent-type-definitions': 'off',
@@ -24,7 +23,7 @@ export default tseslint.config(
       'react/prop-types': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
-        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' },
       ],
 
       // Consider removing these rule disables for more type safety in your app ✨

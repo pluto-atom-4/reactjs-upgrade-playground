@@ -855,7 +855,7 @@ export async function newsletterAction(
   try {
     const email = formData.get('email') as string;
 
-    if (!email || !email.includes('@')) {
+    if (!email?.includes('@')) {
       return {
         success: false,
         message: 'Please enter a valid email address',
@@ -871,7 +871,7 @@ export async function newsletterAction(
       message: `You've been subscribed! Check ${email} for confirmation.`,
       data: { email },
     };
-  } catch (error) {
+  } catch (_error) {
     return {
       success: false,
       message: 'Failed to subscribe. Please try again.',

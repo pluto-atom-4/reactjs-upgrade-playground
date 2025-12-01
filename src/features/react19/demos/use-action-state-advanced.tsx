@@ -25,7 +25,7 @@ function validateUserForm(data: UserFormData): Record<string, string> {
     errors.username = 'Username must be at least 3 characters';
   }
 
-  if (!data.email || !data.email.includes('@')) {
+  if (!data.email?.includes('@')) {
     errors.email = 'Please enter a valid email';
   }
 
