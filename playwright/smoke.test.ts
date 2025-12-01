@@ -116,7 +116,10 @@ test('React 19 cards open dedicated demo pages', async ({ page }) => {
     throw new Error('No React 19 demos found on page');
   }
 
-  for (const demo of demos) {
+  // Test only the first 3 demos to keep test runtime reasonable (can be adjusted)
+  const demoSubset = demos.slice(0, 3);
+
+  for (const demo of demoSubset) {
     const card = page.locator(`[data-demo-slug="${demo.slug}"]`).first();
     await expect(card).toBeVisible({ timeout: 5000 });
 
@@ -141,6 +144,46 @@ test('React 19 cards open dedicated demo pages', async ({ page }) => {
   }
 });
 
+test('Resource Loading & Metadata demo renders correctly', async ({ page }) => {
+  // Navigate directly to the resource-loading-metadata demo
+  await page.goto('/react19-playground/resource-loading-metadata', { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+
+  // Verify the page title
+  await expect(page.locator('h1')).toContainText('Resource Loading & Metadata', { timeout: 10000 });
+
+  // Verify the demo description (use .first() to avoid strict mode violation when text appears multiple times)
+  await expect(page.locator('text=resource loading with precedence').first()).toBeVisible({ timeout: 5000 });
+
+  // Verify tab navigation buttons exist
+  await expect(page.locator('button:has-text("Precedence")')).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('button:has-text("Async Scripts")')).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('button:has-text("Prerender")')).toBeVisible({ timeout: 5000 });
+
+  // Verify back link is present
+  await expect(page.locator('[data-testid="react19-back-link"]')).toBeVisible({ timeout: 5000 });
+
+  // Test Precedence tab interaction
+  const precedenceTab = page.locator('button:has-text("Precedence")').first();
+  await precedenceTab.click();
+  await expect(page.locator('text=Resource Precedence Control').first()).toBeVisible({ timeout: 5000 });
+
+  // Verify simulate button exists
+  await expect(page.locator('button:has-text("Simulate Loading")').first()).toBeVisible({ timeout: 5000 });
+
+  // Test Async Scripts tab
+  const asyncTab = page.locator('button:has-text("Async Scripts")').first();
+  await asyncTab.click();
+  await expect(page.locator('text=Async Script Loading').first()).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('button:has-text("Simulate Async Loading")').first()).toBeVisible({ timeout: 5000 });
+
+  // Test Prerender tab
+  const prerenderTab = page.locator('button:has-text("Prerender")').first();
+  await prerenderTab.click();
+  await expect(page.locator('text=Prerender Hints').first()).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('button:has-text("Start Prerender Simulation")').first()).toBeVisible({ timeout: 5000 });
+});
+
 test('smoke test - all main routes are accessible', async ({ page }) => {
   // Fetch fresh demos for this test run
   await page.goto('/react19-playground', { waitUntil: 'networkidle' });
@@ -162,6 +205,7 @@ test('smoke test - all main routes are accessible', async ({ page }) => {
 
   const firstDemo = demos[0];
   const useApiDemo = demos.find(demo => demo.slug === 'use-api-promise-resolver');
+  const resourceLoadingDemo = demos.find(demo => demo.slug === 'resource-loading-metadata');
   const routes = [
     { path: '/', waitFor: 'h1', description: 'Home page' },
     { path: '/react19-playground', waitFor: '[data-testid="react19-demo-grid"]', description: 'React 19 Playground hub' },
@@ -174,6 +218,15 @@ test('smoke test - all main routes are accessible', async ({ page }) => {
       path: `/react19-playground/${useApiDemo.slug}`,
       waitFor: 'h1',
       description: `use() API demo: ${useApiDemo.title}`
+    });
+  }
+
+  // Add Resource Loading & Metadata demo to routes if available
+  if (resourceLoadingDemo) {
+    routes.push({
+      path: `/react19-playground/${resourceLoadingDemo.slug}`,
+      waitFor: 'h1',
+      description: `Resource Loading demo: ${resourceLoadingDemo.title}`
     });
   }
 

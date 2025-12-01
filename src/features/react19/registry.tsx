@@ -9,6 +9,7 @@ import { PartialPreRenderingDemo } from './demos/partial-pre-rendering';
 import { ServerComponentsAwarenessDemo } from './demos/server-components-awareness';
 import { CustomFormDemo } from './demos/custom-form';
 import { UseApiPromiseResolverDemo } from './demos/use-api-promise-resolver';
+import { ResourceLoadingMetadataDemo } from './demos/resource-loading-metadata';
 export type DemoMeta = {
   slug: string;
   title: string;
@@ -153,6 +154,19 @@ export const react19DemoRegistry: DemoMeta[] = [
       tag: 'bg-teal-500/20 text-teal-100',
     },
     Component: UseApiPromiseResolverDemo,
+  },
+  {
+    slug: 'resource-loading-metadata',
+    title: 'Resource Loading & Metadata',
+    category: 'Performance',
+    summary: 'Demonstrates React 19 resource loading with precedence, async scripts, and prerender hints for optimizing performance.',
+    accent: {
+      bg: 'from-teal-500/10 to-teal-500/5',
+      border: 'border-teal-400/60',
+      text: 'text-teal-300',
+      tag: 'bg-teal-500/20 text-teal-100',
+    },
+    Component: ResourceLoadingMetadataDemo,
   },
 ];
 
