@@ -20,7 +20,7 @@ const React19DemoDetailPage: NextPageWithLayout = () => {
     );
   }
 
-  const demo = getReact19Demo(slug);
+  const demo = slug ? getReact19Demo(slug) : undefined;
 
   if (!demo) {
     return (

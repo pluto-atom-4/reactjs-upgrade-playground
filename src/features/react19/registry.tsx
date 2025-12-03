@@ -12,6 +12,7 @@ import { CustomFormDemo } from './demos/custom-form';
 import { UseApiPromiseResolverDemo } from './demos/use-api-promise-resolver';
 import { ResourceLoadingMetadataDemo } from './demos/resource-loading-metadata';
 import { RefCleanupCallbackDemo } from './demos/ref-cleanup-callback';
+import { UseDeferredValueDemo } from './demos/use-deferred-value';
 export type DemoMeta = {
   slug: string;
   title: string;
@@ -78,6 +79,19 @@ export const react19DemoRegistry: DemoMeta[] = [
       tag: 'bg-cyan-500/20 text-cyan-100',
     },
     Component: UseStartTransitionDemo,
+  },
+  {
+    slug: 'use-deferred-value',
+    title: 'useDeferredValue with Initial Value',
+    category: 'Concurrency',
+    summary: 'Defer search results rendering while keeping input responsive with an initial value.',
+    accent: {
+      bg: 'from-purple-500/10 to-purple-500/5',
+      border: 'border-purple-400/60',
+      text: 'text-purple-300',
+      tag: 'bg-purple-500/20 text-purple-100',
+    },
+    Component: UseDeferredValueDemo,
   },
   {
     slug: 'activity-component',

@@ -61,7 +61,7 @@ export const CustomForm = <T extends Record<string, unknown> = Record<string, un
   onSuccess,
   submitButtonText = 'Submit',
   pendingButtonText = 'Submitting...',
-  resetOnSuccess = true,
+  resetOnSuccess: _resetOnSuccess,
   containerClassName = '',
   formClassName = '',
   ...formProps

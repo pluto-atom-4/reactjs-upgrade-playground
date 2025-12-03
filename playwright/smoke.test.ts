@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 // Remove hardcoded array - we'll fetch actual demos dynamically
-let react19Demos: Array<{ slug: string; title: string }> = [];
+let react19Demos: { slug: string; title: string }[] = [];
 
 // Set a reasonable timeout for all tests (60 seconds total, individual tests get this)
 test.setTimeout(60e3);
@@ -59,7 +59,9 @@ test('add a post', async ({ page }) => {
 
   // Click submit button
   await Promise.all([
-    page.waitForResponse((resp) => resp.url().includes('/trpc') && resp.status() === 200, { timeout: 10000 }).catch(() => {}),
+    page.waitForResponse((resp) => resp.url().includes('/trpc') && resp.status() === 200, { timeout: 10000 }).catch(() => {
+      // Ignore timeout errors for response waiting
+    }),
     page.click('form input[type=submit]'),
   ]);
 
@@ -142,6 +144,43 @@ test('React 19 cards open dedicated demo pages', async ({ page }) => {
     // Ensure hub grid is visible again before next iteration
     await waitVisible(page, '[data-testid="react19-demo-grid"]', 10000);
   }
+});
+
+test('useDeferredValue with Initial Value demo renders correctly', async ({ page }) => {
+  // Navigate directly to the useDeferredValue demo
+  await page.goto('/react19-playground/use-deferred-value', { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+
+  // Verify the page title
+  await expect(page.locator('h1')).toContainText('useDeferredValue', { timeout: 10000 });
+
+  // Verify the demo description
+  await expect(page.locator('text=Defers search input updates for smooth filtering').first()).toBeVisible({ timeout: 5000 });
+
+  // Verify search input exists
+  await expect(page.locator('input[placeholder="Search documentation..."]')).toBeVisible({ timeout: 5000 });
+
+  // Test search functionality
+  const searchInput = page.locator('input[placeholder="Search documentation..."]');
+  await searchInput.fill('Hooks');
+
+  // Verify results are displayed
+  await expect(page.locator('text=React Hooks').first()).toBeVisible({ timeout: 5000 });
+
+  // Verify current state display
+  await expect(page.locator('text=Input value:').first()).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('text=Deferred value:').first()).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('text=Results:').first()).toBeVisible({ timeout: 5000 });
+
+  // Clear search to test empty state
+  await searchInput.clear();
+  await searchInput.fill('XYZ123');
+
+  // Verify no results message appears
+  await expect(page.locator('text=No results found').first()).toBeVisible({ timeout: 5000 });
+
+  // Verify back link is present
+  await expect(page.locator('[data-testid="react19-back-link"]')).toBeVisible({ timeout: 5000 });
 });
 
 test('Resource Loading & Metadata demo renders correctly', async ({ page }) => {
