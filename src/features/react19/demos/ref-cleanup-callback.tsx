@@ -33,7 +33,7 @@ interface ResizeObserverState {
 const ResizeableBox = forwardRef<
   HTMLDivElement,
   { onResize?: (size: { width: number; height: number }) => void }
->(({ onResize }, ref) => {
+>(({ onResize: _onResize }, ref) => {
   return (
     <div
       ref={ref}
@@ -53,7 +53,7 @@ ResizeableBox.displayName = 'ResizeableBox';
 const IntervalCounter = forwardRef<
   HTMLDivElement,
   { interval: number; onTick?: (count: number) => void }
->(({ interval, onTick }, ref) => {
+>(({ interval, onTick: _onTick }, ref) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
