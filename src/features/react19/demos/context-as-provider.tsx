@@ -164,9 +164,9 @@ export const ContextAsProviderDemo = (): JSX.Element => {
           }`}
         >
           <strong>Key Benefit:</strong> In React 19, you can use{' '}
-          <code className="font-mono">&lt;ThemeContext value={`{...}`} &gt;</code>{' '}
+          <code className="font-mono">&lt;ThemeContext value=&#123;&#123;...&#125;&#125; &gt;</code>{' '}
           directly instead of{' '}
-          <code className="font-mono">&lt;ThemeContext.Provider value={`{...}`} &gt;</code>
+          <code className="font-mono">&lt;ThemeContext.Provider value=&#123;&#123;...&#125;&#125; &gt;</code>
           . This makes the API simpler and more intuitive!
         </div>
       </div>

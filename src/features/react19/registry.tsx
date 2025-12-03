@@ -11,6 +11,7 @@ import { ServerComponentsAwarenessDemo } from './demos/server-components-awarene
 import { CustomFormDemo } from './demos/custom-form';
 import { UseApiPromiseResolverDemo } from './demos/use-api-promise-resolver';
 import { ResourceLoadingMetadataDemo } from './demos/resource-loading-metadata';
+import { RefCleanupCallbackDemo } from './demos/ref-cleanup-callback';
 export type DemoMeta = {
   slug: string;
   title: string;
@@ -181,6 +182,19 @@ export const react19DemoRegistry: DemoMeta[] = [
       tag: 'bg-violet-500/20 text-violet-100',
     },
     Component: ContextAsProviderDemo,
+  },
+  {
+    slug: 'ref-cleanup-callback',
+    title: 'Ref Cleanup & Callback',
+    category: 'DOM Integration',
+    summary: 'Manage DOM resources with React 19 ref cleanup functions - automatically clean up ResizeObserver, event listeners, and subscriptions.',
+    accent: {
+      bg: 'from-rose-500/10 to-rose-500/5',
+      border: 'border-rose-400/60',
+      text: 'text-rose-300',
+      tag: 'bg-rose-500/20 text-rose-100',
+    },
+    Component: RefCleanupCallbackDemo,
   },
 ];
 
