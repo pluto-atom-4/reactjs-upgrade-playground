@@ -43,3 +43,8 @@ playwright/test-results
 /.idea/
 .env
 /.eslintcache
+
+# Generated documentation and reports
+/generated/
+generated/
+
