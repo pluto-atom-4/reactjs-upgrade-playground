@@ -245,6 +245,7 @@ test('smoke test - all main routes are accessible', async ({ page }) => {
   const firstDemo = demos[0];
   const useApiDemo = demos.find(demo => demo.slug === 'use-api-promise-resolver');
   const resourceLoadingDemo = demos.find(demo => demo.slug === 'resource-loading-metadata');
+  const errorHandlingDemo = demos.find(demo => demo.slug === 'error-handling');
   const routes = [
     { path: '/', waitFor: 'h1', description: 'Home page' },
     { path: '/react19-playground', waitFor: '[data-testid="react19-demo-grid"]', description: 'React 19 Playground hub' },
@@ -266,6 +267,15 @@ test('smoke test - all main routes are accessible', async ({ page }) => {
       path: `/react19-playground/${resourceLoadingDemo.slug}`,
       waitFor: 'h1',
       description: `Resource Loading demo: ${resourceLoadingDemo.title}`
+    });
+  }
+
+  // Add Error Handling demo to routes if available
+  if (errorHandlingDemo) {
+    routes.push({
+      path: `/react19-playground/${errorHandlingDemo.slug}`,
+      waitFor: 'h1',
+      description: `Error Handling demo: ${errorHandlingDemo.title}`
     });
   }
 

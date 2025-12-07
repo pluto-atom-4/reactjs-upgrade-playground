@@ -2,6 +2,7 @@ import type { JSX } from 'react';
 import { ContextAsProviderDemo } from "~/features/react19/demos.tsx";
 import { UseActionStateDemo } from './demos/use-action-state-basic';
 import { UseActionStateAdvancedDemo } from './demos/use-action-state-advanced';
+import { ErrorHandlingDemo } from './demos/error-handling';
 import { UseOptimisticDemo } from './demos/use-optimistic';
 import { UseStartTransitionDemo } from './demos/use-transition';
 import { ActivityComponentDemo } from './demos/activity-component';
@@ -53,6 +54,19 @@ export const react19DemoRegistry: DemoMeta[] = [
       tag: 'bg-sky-500/20 text-sky-100',
     },
     Component: UseActionStateAdvancedDemo,
+  },
+  {
+    slug: 'error-handling',
+    title: 'Error Handling & Error Boundary',
+    category: 'Error Management',
+    summary: 'Comprehensive error handling with field-level validation, global errors, and Error Boundary component.',
+    accent: {
+      bg: 'from-red-500/10 to-red-500/5',
+      border: 'border-red-400/60',
+      text: 'text-red-300',
+      tag: 'bg-red-500/20 text-red-100',
+    },
+    Component: ErrorHandlingDemo,
   },
   {
     slug: 'use-optimistic',
