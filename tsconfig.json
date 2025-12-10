@@ -17,8 +17,10 @@
       "ES2022"
     ],
     "noEmit": true,
-    "module": "Preserve",
+    "module": "ESNext",
     "moduleResolution": "bundler",
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
     "jsx": "react-jsx",
     "plugins": [
       {
@@ -39,6 +41,7 @@
   },
   "include": [
     "next-env.d.ts",
+    "prisma.config.ts",
     "**/*.ts",
     "**/*.tsx",
     "*.js",

@@ -1,11 +1,20 @@
 /**
  * Adds seed data to your db
  *
- * @see https://www.prisma.io/docs/guides/database/seed-database
+ * @see https://www.prisma.io/docs/guides/nextjs
  */
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "~/generated/prisma/client.ts";
+import { PrismaPg } from '@prisma/adapter-pg'
+import 'dotenv/config'
 
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL,
+})
+
+const prisma = new PrismaClient({
+  adapter,
+});
+
 
 async function main() {
   const firstPostId = '5c03994c-fc16-47e0-bd02-d218a370a078';
