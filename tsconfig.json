@@ -19,7 +19,7 @@
     "noEmit": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react-jsx",
     "plugins": [
@@ -37,7 +37,8 @@
     "types": [
       "vitest/globals",
       "@testing-library/jest-dom"
-    ]
+    ],
+    "resolveJsonModule": true
   },
   "include": [
     "next-env.d.ts",
