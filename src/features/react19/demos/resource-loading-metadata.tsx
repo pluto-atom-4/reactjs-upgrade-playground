@@ -41,8 +41,10 @@ type ResourceLoadingDemoState = {
  * - Suspense boundaries can wrap resource-dependent content
  * - Resource loading status can be observed via load/error events
  * - Works seamlessly with Next.js 14+ and other React 19 metaframeworks
+ *
+ * @noinspection HtmlAttributeValueInvalid,HtmlUnknownAttribute,HttpUrlsUsage
  */
-
+// noinspection HtmlAttributeValueInvalid,HtmlUnknownAttribute,HttpUrlsUsage
 export const ResourceLoadingMetadataDemo = (): JSX.Element => {
   const [state, setState] = useState<ResourceLoadingDemoState>({
     activeTab: 'precedence',
@@ -286,9 +288,10 @@ export const ResourceLoadingMetadataDemo = (): JSX.Element => {
 
             {/* Code Example */}
             <div className="bg-gray-900 border border-gray-600 rounded-lg p-4 mt-4">
-              <p className="text-xs font-mono text-gray-400 mb-2">JSX Example:</p>
-              <pre className="text-xs text-gray-300 overflow-x-auto whitespace-pre-wrap break-words">
-{`<link
+              <p className="text-xs font-mono text-gray-400 mb-2">JSX Example (React 19 Syntax):</p>
+              <pre className="text-xs text-gray-300 overflow-x-auto whitespace-pre-wrap wrap-break-word">
+{`{/* React 19: precedence attribute for resource ordering */}
+<link
   rel="preload"
   href="https://fonts.googleapis.com/css2?family=Roboto"
   as="style"
@@ -296,7 +299,7 @@ export const ResourceLoadingMetadataDemo = (): JSX.Element => {
 />
 <link
   rel="preload"
-  href="system-font.css"
+  href="/styles/fallback-font.css"
   as="style"
   precedence="low"
 />`}
@@ -374,9 +377,10 @@ export const ResourceLoadingMetadataDemo = (): JSX.Element => {
 
             {/* Code Example */}
             <div className="bg-gray-900 border border-gray-600 rounded-lg p-4 mt-4">
-              <p className="text-xs font-mono text-gray-400 mb-2">JSX Example:</p>
-              <pre className="text-xs text-gray-300 overflow-x-auto whitespace-pre-wrap break-words">
-{`<script
+              <p className="text-xs font-mono text-gray-400 mb-2">JSX Example (React 19 - External URLs):</p>
+              <pre className="text-xs text-gray-300 overflow-x-auto whitespace-pre-wrap wrap-break-word">
+{`{/* React 19: async scripts load non-blocking */}
+<script
   src="https://analytics.example.com/track.js"
   async
 />
@@ -465,7 +469,7 @@ export const ResourceLoadingMetadataDemo = (): JSX.Element => {
             {/* Code Example */}
             <div className="bg-gray-900 border border-gray-600 rounded-lg p-4 mt-4">
               <p className="text-xs font-mono text-gray-400 mb-2">JSX Example (Next.js):</p>
-              <pre className="text-xs text-gray-300 overflow-x-auto whitespace-pre-wrap break-words">
+              <pre className="text-xs text-gray-300 overflow-x-auto whitespace-pre-wrap wrap-break-word">
 {`// High priority - prerender these pages
 export const PrerenderedProductListing = () => (
   <PrerenderedRoute>
@@ -474,7 +478,7 @@ export const PrerenderedProductListing = () => (
 );
 
 // Low priority - skip prerendering
-export const UserDashboard = ({ userId }) => (
+export const UserDashboard = ({ userId: _userId }) => (
   <DynamicRoute prerender={false}>
     {/* Personalized dashboard */}
   </DynamicRoute>

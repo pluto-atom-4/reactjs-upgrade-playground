@@ -125,7 +125,7 @@ export const ErrorHandlingDemo = (): JSX.Element => {
     <ErrorBoundary>
       <div className="space-y-6">
         {/* Form with Error Handling */}
-        <div className="bg-gradient-to-br from-red-50 to-red-50/50 border-2 border-red-200 rounded-lg p-6">
+        <div className="bg-linear-to-br from-red-50 to-red-50/50 border-2 border-red-200 rounded-lg p-6">
           <h3 className="text-2xl font-bold text-red-900 mb-2">Error Handling in React 19</h3>
           <p className="text-sm text-red-700 mb-6">
             Demonstrates validation errors, field-level errors, and global error states with useActionState
@@ -247,7 +247,7 @@ export const ErrorHandlingDemo = (): JSX.Element => {
         </div>
 
         {/* Manual Error Simulation */}
-        <div className="bg-gradient-to-br from-orange-50 to-orange-50/50 border-2 border-orange-200 rounded-lg p-6">
+        <div className="bg-linear-to-br from-orange-50 to-orange-50/50 border-2 border-orange-200 rounded-lg p-6">
           <h4 className="text-lg font-bold text-orange-900 mb-3">Error Boundary Demo</h4>
           <p className="text-sm text-orange-700 mb-4">
             Demonstrates React Error Boundary component for catching rendering errors

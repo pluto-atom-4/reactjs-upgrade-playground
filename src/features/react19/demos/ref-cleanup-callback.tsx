@@ -37,7 +37,7 @@ const ResizeableBox = forwardRef<
   return (
     <div
       ref={ref}
-      className="w-full bg-gradient-to-r from-rose-400 to-pink-400 rounded-lg p-8 text-white font-semibold text-center resize overflow-auto"
+      className="w-full bg-linear-to-r from-rose-400 to-pink-400 rounded-lg p-8 text-white font-semibold text-center resize overflow-auto"
       style={{ minHeight: '150px', userSelect: 'none' }}
     >
       📦 Resize this box to see updates
@@ -67,7 +67,7 @@ const IntervalCounter = forwardRef<
   return (
     <div
       ref={ref}
-      className="bg-gradient-to-r from-cyan-400 to-blue-400 rounded-lg p-6 text-white text-center font-semibold"
+      className="bg-linear-to-r from-cyan-400 to-blue-400 rounded-lg p-6 text-white text-center font-semibold"
     >
       ⏱️ Interval Counter: {count}
     </div>
@@ -210,7 +210,7 @@ export const RefCleanupCallbackDemo = (): JSX.Element => {
 
         <div
           ref={eventBoxRef}
-          className="w-full bg-gradient-to-r from-purple-400 to-pink-400 rounded-lg p-8 text-white font-semibold text-center cursor-pointer transition-transform hover:scale-105"
+          className="w-full bg-linear-to-r from-purple-400 to-pink-400 rounded-lg p-8 text-white font-semibold text-center cursor-pointer transition-transform hover:scale-105"
         >
           👆 Hover to trigger event listeners
         </div>

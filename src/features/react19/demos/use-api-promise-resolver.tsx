@@ -81,10 +81,10 @@ function UserDataDisplay({ userPromise }: { userPromise: Promise<{ id: string; n
 function UserDataFallback(): JSX.Element {
   return (
     <div className="bg-white border border-teal-200 rounded-lg p-4 space-y-3">
-      <div className="h-4 bg-gradient-to-r from-teal-200 to-transparent rounded animate-pulse"></div>
-      <div className="h-4 bg-gradient-to-r from-teal-200 to-transparent rounded animate-pulse w-5/6"></div>
-      <div className="h-4 bg-gradient-to-r from-teal-200 to-transparent rounded animate-pulse w-4/6"></div>
-      <div className="h-4 bg-gradient-to-r from-teal-200 to-transparent rounded animate-pulse w-3/4"></div>
+      <div className="h-4 bg-linear-to-r from-teal-200 to-transparent rounded animate-pulse"></div>
+      <div className="h-4 bg-linear-to-r from-teal-200 to-transparent rounded animate-pulse w-5/6"></div>
+      <div className="h-4 bg-linear-to-r from-teal-200 to-transparent rounded animate-pulse w-4/6"></div>
+      <div className="h-4 bg-linear-to-r from-teal-200 to-transparent rounded animate-pulse w-3/4"></div>
     </div>
   );
 }

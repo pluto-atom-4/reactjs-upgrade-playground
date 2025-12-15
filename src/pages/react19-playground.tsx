@@ -7,7 +7,7 @@ import { react19DemoRegistry } from '~/features/react19/demos';
 const DemoCard = ({ demo }: { demo: (typeof react19DemoRegistry)[number] }) => (
   <Link
     href={`/react19-playground/${demo.slug}`}
-    className={`relative block rounded-2xl border ${demo.accent.border} bg-gradient-to-br ${demo.accent.bg} p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400`}
+    className={`relative block rounded-2xl border ${demo.accent.border} bg-linear-to-br ${demo.accent.bg} p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400`}
     aria-label={`Open ${demo.title}`}
     data-testid="react19-demo-card"
     data-demo-slug={demo.slug}
@@ -34,7 +34,7 @@ const React19PlaygroundPage: NextPageWithLayout = () => (
       <meta name="description" content="Interactive playground for React 19.2 features" />
     </Head>
 
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12 px-4">
+    <div className="min-h-screen bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 py-12 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-white mb-4">React 19.2 Features Playground</h1>
